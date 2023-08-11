@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "Oldest Guild Joined",
+  "version": "1.0",
+  "description": "Extension build to find approximate date of server start of any server.",
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "64": "icon64.png"
+  },
+  "permissions": [
+    "webRequest"
+  ],
+  "host_permissions": [
+    "*://*/*"
+  ],
+  "content_scripts": [
+    {
+      "js": [ "angular-loader.js" ],
+       "matches": [ "*://*/*" ],
+      "include_globs": [
+        "*://*.sfgame.*/*"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [ "tool-sidebar.css", "tool-sidebar.html", "main.js", "polyfills.js", "runtime.js" ],
+      "matches": [
+        "*://*/*"
+      ] 
+    }
+  ]
+}

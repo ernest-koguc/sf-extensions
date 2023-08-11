@@ -1,0 +1,171 @@
+.ctn {
+    position: absolute;
+    font-family: 'Courier New';
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+}
+
+
+.plugin-ctn {
+    color: #F5EFEE;
+    background-color: #463F3E;
+    border: 1px solid #1A201B;
+    border-top-left-radius: 5px;
+    width: 150px;
+    padding-top: 0;
+}
+
+.button-pane {
+    align-self: center;
+    display: flex;
+    flex: auto;
+    flex-direction: column;
+}
+
+.stat-ctn {
+    margin: 0.5rem 0.5rem 0 0.5rem;
+    word-break: break-word;
+}
+
+p {
+    margin-top: 0.125rem;
+    margin-bottom: 0.35rem;
+}
+
+label {
+    font-weight: 600;
+} 
+
+h1 {
+    margin: 0;
+    font-size: 1rem;
+    word-break: break-word;
+    text-align: center;
+    font-weight: 900;
+}
+.top-ctn {
+    padding: 0.25rem;
+    display: flex;
+    flex: auto;
+    justify-content: flex-end;
+    align-items: end;
+    background-color: #302D27;
+    flex-direction: column;
+    box-shadow: black 1px 1px;
+}
+
+button {
+    min-width: 1.5rem;
+    padding: 1px;
+    cursor: pointer;
+    background-color: #C3C2B7;
+    color: #242422;
+    border: 1px solid; 
+    font-weight: 900;
+    margin: 0;
+}
+
+button:hover {
+    background-color: #818178;
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+dialog {
+    background-color: #302D27;
+    color: #F5EFEE;
+    border: 1px solid white;
+    border-radius: 5%;
+    margin: auto;
+    padding: 5px;
+}
+
+.guild-dialog {
+    padding: 0;
+    margin-right: 0;
+    margin-left: auto;
+    display: flex;
+    flex: auto;
+    flex-direction: column;
+    background-color: #463F3E;
+    border-end-end-radius: 0;
+}
+.guild-label {
+    padding: 5px;
+    background-color: #302D27;
+    display: flex;
+    flex: auto;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.guild-label h1 {
+    line-height: 2rem;
+}
+
+.clear-btn {
+    margin-left: 10px;
+}
+
+ul {
+    list-style: none;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 5px;
+    margin: 1px 1px;
+    /* Firefox scrollback supprort */
+    scrollbar-color: #1F5571 #1E2429;
+    padding-right: 15px;
+}
+
+/* Chrome scrollbar support*/
+ul::-webkit-scrollbar {
+    width: 10px;
+}
+ul::-webkit-scrollbar-track {
+    background: #1E2429;
+}
+ul::-webkit-scrollbar-thumb {
+    background: #1F5571;
+}
+
+.dialog-content {
+    display: flex;
+    flex: auto;
+    flex-direction: column;
+
+}
+
+input {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #29291E;
+    box-shadow: black 1px 1px;
+    background-color: #20201E;
+    color: white;
+}
+
+input:focus {
+    outline-style: none;
+}
+
+.dialog-btn {
+  width: 50px;
+  align-self: end;
+  font-size: 15px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}

@@ -1,0 +1,2 @@
+C:\Users\grati\source\repos\SFGameHelper\SFGameHelper\obj\Debug\SFGameHelper.esproj.SuggestedBindingRedirects.cache
+C:\Users\grati\source\repos\SFGameHelper\SFGameHelper\obj\Debug\SFGameHelper.esproj.CoreCompileInputs.cache
