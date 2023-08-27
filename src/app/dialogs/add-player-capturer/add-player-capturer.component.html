@@ -1,0 +1,12 @@
+<div [formGroup]="form" class="dialog-content">
+  <label for="name">Name</label>
+  <input id="name" type="text" formControlName="name"/>
+  <label for="maxPid">Maximum Player ID</label>
+  <input id="maxPid" type="number" step="1" formControlName="maxPid"/>
+  <label for="minPid">Minimum Player ID</label>
+  <input id="minPid" type="number" step="1" formControlName="minPid"/>
+</div>
+<div class="dialog-actions">
+  <button btn type="button" (click)="cancel()">Cancel</button>
+  <button btn type="button" [disabled]="!form.valid" (click)="add()">Add</button>
+</div>

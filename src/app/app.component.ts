@@ -1,11 +1,15 @@
-import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { Guild } from './models/guild';
+import { Component, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { CapturedGuildsComponent } from './components/captured-guilds/captured-guilds.component';
+import { CapturedPlayerComponent } from './components/captured-player/captured-player.component';
+import { toggleDialog } from './dom/dialog';
+import { GuildCapturer } from './models/guild-capturer';
+import { PlayerCapturer } from './models/player-capturer';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
   constructor() {
@@ -14,56 +18,53 @@ export class AppComponent {
       this.digestResponse(event.detail);
     });
   }
+
+  @ViewChildren(CapturedGuildsComponent)
+  public guildComponents!: QueryList<CapturedGuildsComponent>;
+  @ViewChildren(CapturedPlayerComponent)
+  public playerComponents!: QueryList<CapturedPlayerComponent>;
+
+  public guildCapturers: GuildCapturer[] = [new GuildCapturer(0, 999999, 'Default')];
+  public playerCapturers: PlayerCapturer[] = [new PlayerCapturer(0, 10000, 'Default')];
   public isTrackingEnabled: boolean = true;
-  public currentPid: number = 99999999;
-  public playerName: string = '-';
-  public guildJoinedDate: string = '-';
-  public guildJoined: number = Date.now();
-  public minimumPid = new FormControl<number>(10000);
   public showWindow: boolean = true;
-  public capturedGuilds: Guild[] = [];
-  public showGuilds: boolean = false;
 
-  get playerId(): string {
-    return this.currentPid == 99999999 ? '-' : this.currentPid.toString();
+  public configurationDialogID: string = 'configuration-dialog';
+  public addGuildCapturerDialogId: string = 'add-guild-capturer'
+  public addPlayerCapturerDialogId: string = 'add-player-capturer'
+
+  addGuildCapturer(form?: { name: string, minGid: number, maxGid: number}) {
+    toggleDialog(this.addGuildCapturerDialogId)
+
+    if (form) {
+      let capturer = new GuildCapturer(form.minGid, form.maxGid, form.name)
+      this.guildCapturers.push(capturer);
+    }
   }
 
-  public toggleGuilds() {
-    this.showGuilds = !this.showGuilds;
+  deleteGuildCapturer(id: number) {
+    this.guildCapturers = this.guildCapturers.filter(v => v.id != id);
   }
 
-  public clearGuilds() {
-    this.capturedGuilds = [];
+  addPlayerCapturer(form?: { name: string, minPid: number, maxPid: number }) {
+    toggleDialog(this.addPlayerCapturerDialogId);
+
+    if (form) {
+      let capturer = new PlayerCapturer(form.minPid, form.maxPid, form.name)
+      this.playerCapturers.push(capturer);
+    }
+  }
+
+  deletePlayerCapturer(id: number) {
+    this.playerCapturers = this.playerCapturers.filter(v => v.id != id);
   }
 
   public toggleTracking() {
     this.isTrackingEnabled = !this.isTrackingEnabled;
   }
 
-  public clearPlayer() {
-    this.currentPid = 99999999;
-    this.playerName = '-';
-    this.guildJoinedDate = '-';
-    this.guildJoined = Date.now();
-  }
-
-  public togglePlugin() {
+  public toggleWindow() {
     this.showWindow = !this.showWindow;
-  }
-
-  public toggleDialog() {
-    const dialog = document.getElementById('configuration-dialog');
-    if (!dialog)
-      return;
-
-    const modal = dialog as HTMLDialogElement;
-
-    if (!modal.open) {
-      modal.showModal();
-     
-      return;
-    }
-    modal.close();
   }
 
   private digestResponse(body: string) {
@@ -86,9 +87,8 @@ export class AppComponent {
     let playerId = parseInt(data[0]);
     
 
-    let minVal = this.minimumPid.value ?? 10000;
 
-    if (playerId > minVal || isNaN(playerId))
+    if (isNaN(playerId))
      return;
 
     let splitData = body.split('/');
@@ -97,15 +97,17 @@ export class AppComponent {
     if (guildJoined == 0)
       return;
 
-    if (guildJoined > this.guildJoined)
+    let validCapturers = this.playerCapturers.filter(p => p.isPlayerValid(playerId));
+
+    if (!validCapturers)
       return;
 
-    let nameString = splitData[260];
+    let name = splitData[260];
+    name = name.split(':')[2].split('&')[0];
 
-    this.currentPid = playerId;
-    this.guildJoined = guildJoined;
-    this.guildJoinedDate = new Date(this.guildJoined * 1000).toDateString();    
-    this.playerName = nameString.split(':')[2].split('&')[0];
+    for (let capturer of validCapturers) {
+      capturer.digestPlayer(playerId, guildJoined, name)
+    }
   }
 
   private updateGuilds(body: string) {
@@ -113,19 +115,8 @@ export class AppComponent {
     let splitData = body.split('/');
     let guildName = splitData[491].split('&')[3].substring(17);
 
-    if (this.capturedGuilds.find(v => v.gid == gid))
-      return;
-
-    this.capturedGuilds.push({ gid: gid, guildName: guildName });
-    this.capturedGuilds.sort((a, b) => this.sortFunction(a.gid, b.gid));
-  }
-
-  private sortFunction(a: number, b: number) {
-    if (a > b)
-      return 1;
-    if (b > a)
-      return -1;
-
-    return 0;
+    for (let capturer of this.guildComponents) {
+      capturer.digestGuild(gid, guildName);
+    }
   }
 }

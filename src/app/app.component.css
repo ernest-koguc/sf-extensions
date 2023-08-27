@@ -1,63 +1,46 @@
-.ctn {
+.plugin-ctn {
     position: absolute;
     font-family: 'Courier New';
     right: 0;
-    bottom: 0;
-    background-color: transparent;
+    top: 0;
     display: flex;
     flex-direction: row;
+    max-height: 100%;
+    overflow-y: auto;
+    scrollbar-color: #912BE5 #1E2429;
 }
 
+.plugin-ctn::-webkit-scrollbar {
 
-.plugin-ctn {
+    width: 10px;
+    height: 10px;
+}
+.plugin-ctn::-webkit-scrollbar-track {
+    background: #1E2429;
+}
+.plugin-ctn::-webkit-scrollbar-thumb {
+    background: #912BE5;
+}
+.plugin-ctn::-webkit-scrollbar-corner {
+    background: #1E2429;
+}
+
+.sections-ctn {
     color: #F5EFEE;
-    background-color: #463F3E;
     border: 1px solid #1A201B;
     border-top-left-radius: 5px;
-    width: 150px;
     padding-top: 0;
 }
 
 .button-pane {
-    align-self: center;
+    align-self: start;
     display: flex;
     flex: auto;
     flex-direction: column;
 }
 
-.stat-ctn {
-    margin: 0.5rem 0.5rem 0 0.5rem;
-    word-break: break-word;
-}
 
-p {
-    margin-top: 0.125rem;
-    margin-bottom: 0.35rem;
-}
-
-label {
-    font-weight: 600;
-} 
-
-h1 {
-    margin: 0;
-    font-size: 1rem;
-    word-break: break-word;
-    text-align: center;
-    font-weight: 900;
-}
-.top-ctn {
-    padding: 0.25rem;
-    display: flex;
-    flex: auto;
-    justify-content: flex-end;
-    align-items: end;
-    background-color: #302D27;
-    flex-direction: column;
-    box-shadow: black 1px 1px;
-}
-
-button {
+.toolbar-btn {
     min-width: 1.5rem;
     padding: 1px;
     cursor: pointer;
@@ -68,8 +51,12 @@ button {
     margin: 0;
 }
 
-button:hover {
+.toolbar-btn:hover {
     background-color: #818178;
+}
+
+button:focus-visible {
+    outline-style: none;
 }
 
 dialog::backdrop {
@@ -85,79 +72,43 @@ dialog {
     padding: 5px;
 }
 
-.guild-dialog {
+.tabs-ctn {
     padding: 0;
     margin-right: 0;
     margin-left: auto;
     display: flex;
     flex: auto;
     flex-direction: column;
-    background-color: #463F3E;
-    border-end-end-radius: 0;
+    border-radius: 0;
 }
-.guild-label {
-    padding: 5px;
-    background-color: #302D27;
+.tabs-header {
+    background-color: #181A17;
     display: flex;
     flex: auto;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.guild-label h1 {
-    line-height: 2rem;
-}
-
-.clear-btn {
-    margin-left: 10px;
-}
-
-ul {
-    list-style: none;
-    max-height: 300px;
-    overflow-y: auto;
+.tabs-header h1 {
     padding: 5px;
-    margin: 1px 1px;
-    /* Firefox scrollback supprort */
-    scrollbar-color: #1F5571 #1E2429;
-    padding-right: 15px;
+    font-size: 25px;
+    line-height: 2rem;
+    margin: 0;
+    padding-left: 6px;
 }
 
-/* Chrome scrollbar support*/
-ul::-webkit-scrollbar {
-    width: 10px;
+.add-btn {
+    margin: 0;
+    width: 42px;
+    appearance: none;
+    background-color: transparent;
+    color: #1FAE40;
+    border-style: none;
+    cursor: pointer;
+    font-size: 30px;
 }
-ul::-webkit-scrollbar-track {
-    background: #1E2429;
-}
-ul::-webkit-scrollbar-thumb {
-    background: #1F5571;
-}
-
-.dialog-content {
-    display: flex;
-    flex: auto;
-    flex-direction: column;
-
-}
-
-input {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    border: 1px solid #29291E;
-    box-shadow: black 1px 1px;
-    background-color: #20201E;
-    color: white;
-}
-
-input:focus {
-    outline-style: none;
-}
-
-.dialog-btn {
-  width: 50px;
-  align-self: end;
-  font-size: 15px;
+.add-btn:hover {
+    background-color: gray;
 }
 
 input::-webkit-outer-spin-button,
@@ -166,6 +117,161 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+input.ng-invalid.ng-touched  {
+    border-color: #D1295F;   
+}
+
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+.btn {
+    appearance: none;
+    background-color: black;
+    border-style: none;
+    border: 2px solid #501FAE;
+    color: #501FAE;
+    border-radius: 5px;
+    margin:0;
+    padding: 6px;
+    cursor: pointer;
+    margin-left: 4px;
+    font-weight: 600;
+}
+
+.btn:hover:not(:disabled) {
+  background-color: #222025;
+}
+
+.btn:disabled {
+    color: gray;
+    border-color: gray;
+    cursor: default;
+}
+
+.capturer-ctn {
+    width: 200px;
+    max-width: 200px;
+    background-color: #454545;
+    margin-bottom: 0;
+}
+
+.capturer-top-ctn {
+    background-color: #262528;
+    border-bottom: solid 1px;
+    border-image: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0), rgba(255,255,255,1), rgba(255,255,255,1), rgba(255,255,255,0), rgba(255,255,255,0)) 20%;
+    display: flex;
+    justify-content: space-between;
+    user-select: none;
+    height: 52px;
+}
+
+.capturer-btn-pane {
+    display: flex;
+    flex-direction: column;
+    background-color: #382B39;
+}
+
+.icon-btn {
+    appearance: none;
+    background-color: #262528;
+    border-style: none;
+    margin:0;
+    padding: 3px;
+    cursor: pointer;
+    width: 26px;
+    height: 26px;
+}
+.icon-btn:hover {
+    background-color: #363437;
+}
+
+.capturer-header h1 {
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+    text-overflow: ellipsis;
+    max-width: 150px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.capturer-header {
+    width: auto;
+    flex-grow: 1;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.capturer-header:hover {
+    background-color: #363437;
+}
+
+.txt-danger {
+    color: #DA2A60;
+}
+
+.txt-warning {
+    color: #DDCA28;
+}
+
+.txt-primary {
+    color: #912BE5;
+}
+
+.txt-contrast {
+    color: #386FE3;
+}
+
+.small-icon {
+    font-size: 10px;
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+dialog {
+    background-color: #070707; 
+    color: #F5EFEE;
+    border: 1px solid #386FE3;
+    border-radius: 10px;
+    margin: auto;
+    padding: 15px;
+}
+
+.dialog-content {
+    display: flex;
+    flex: auto;
+    flex-direction: column;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.config-hint {
+    font-size: 13px;
+    color: #BEBCC9;
+}
+
+input {
+    margin: 15px 0;
+    border: 1px solid #9494A3;
+    border-radius: 4px;
+    background-color: transparent;
+    color: #A8A8B5;
+    width: 150px;
+    font-weight: 200;
+    height: 30px;
+}
+
+input:focus, input:hover {
+    outline-style: none;
+    border-color: #F8F8F9;
+}
+
+label {
+    font-weight: 600;
 }

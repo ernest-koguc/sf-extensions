@@ -1,0 +1,32 @@
+ul {
+    list-style: none;
+    max-height: 200px;
+    overflow-y: scroll;
+    overflow-x: auto;
+    padding: 5px;
+    margin: 0;
+    /* Firefox scrollback supprort */
+    scrollbar-color: #912BE5 #1E2429;
+    padding-right: 15px;
+    white-space: nowrap;
+}
+
+.capturer-top-ctn {
+    border-image: linear-gradient(to right, rgba(145,43,229,0), rgba(145,43,229,0), rgba(145,43,229,1), rgba(145,43,229,1), rgba(145,43,229,0), rgba(145,43,229,0)) 20%;
+}
+
+/* Chrome scrollbar support*/
+ul::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+ul::-webkit-scrollbar-track {
+    background: #1E2429;
+}
+ul::-webkit-scrollbar-thumb {
+    background: #912BE5;
+}
+ul::-webkit-scrollbar-corner {
+    background: #1E2429;
+}
+

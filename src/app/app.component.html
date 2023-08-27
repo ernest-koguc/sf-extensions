@@ -1,50 +1,50 @@
-<div class="ctn">
+<div class="plugin-ctn">
+
+  <!--LEFT BUTTON PANE-->
+
   <div *ngIf="showWindow" class="button-pane">
-    <button (click)="toggleTracking()" title="Enable tracking" *ngIf="!isTrackingEnabled"><i class="fa-solid fa-check"></i></button>
-    <button (click)="toggleTracking()" title="Disable tracking" *ngIf="isTrackingEnabled"><i class="fa-solid fa-xmark"></i></button>
-    <button (click)="toggleGuilds()" title="Show/hide list of guilds"><i class="fa-solid fa-people-group"></i></button>
-    <button (click)="togglePlugin()" title="Hide window"><i class="fa-solid fa-chevron-right"></i></button>
-    <button (click)="toggleDialog()" title="Configuration"><i class="fa-solid fa-gear"></i></button>
-    <button (click)="clearPlayer()" title="Clear player"><i class="fa-solid fa-trash"></i></button>
+    <button class="toolbar-btn" (click)="toggleWindow()" title="Hide window"><i class="fa-solid fa-chevron-right"></i></button>
+    <button class="toolbar-btn" (click)="toggleTracking()" title="Enable tracking" *ngIf="!isTrackingEnabled"><i class="fa-solid fa-check"></i></button>
+    <button class="toolbar-btn" (click)="toggleTracking()" title="Disable tracking" *ngIf="isTrackingEnabled"><i class="fa-solid fa-xmark"></i></button>
   </div>
-<div *ngIf="showWindow" class='plugin-ctn' id="ogj-ctn">
-  <div class="top-ctn">
-    <h1>
-      Oldest Guild Joined
-    </h1>
+  <div *ngIf="showWindow" class='sections-ctn' id="ogj-ctn">
+
+  <!--GUILD TABS-->
+
+    <div class="tabs-ctn">
+      <div class="tabs-header txt-primary">
+        <h1>Guilds</h1>
+        <button class="add-btn" (click)="addGuildCapturer()" title="Add new guild capturer"><i class="fa-solid fa-plus"></i></button>
+      </div>
+      <captured-guilds *ngFor="let capturer of guildCapturers" (deleteCapturer)="deleteGuildCapturer($event)" [capturer]="capturer"></captured-guilds>
+    </div>
+
+  <!--PLAYER TABS-->
+
+    <div class="tabs-ctn">
+      <div class="tabs-header txt-contrast">
+        <h1>Players</h1>
+        <button class="add-btn" (click)="addPlayerCapturer()" title="Add new player capturer"><i class="fa-solid fa-plus"></i></button>
+      </div>
+      <captured-player *ngFor="let capturer of playerCapturers" (deleteCapturer)="deletePlayerCapturer($event)" [capturer]="capturer"></captured-player>
+    </div>
+
   </div>
-  <div class="stat-ctn">
-    <label for="pid"> PlayerID: </label>
-    <p id="pid"> {{ playerId }}</p>
-    <label for="pname"> Player Name: </label>
-    <p id="pname"> {{ playerName }}</p>
-    <label for="gjoined"> Guild Joined: </label>
-    <p id="gjoined"> {{ guildJoinedDate }}</p>
-    <label for="gtimestamp">Timestamp:</label>
-    <p id="gtimestamp"> {{ guildJoined}}</p>
-  </div>
-</div>
+
+  <!--MINIMIZED PLUGIN VIEW-->
+
   <div *ngIf="!showWindow" class="button-pane">
-    <button (click)="togglePlugin()" title="Open window"><i class="fa-solid fa-chevron-left"></i></button>
+    <button class="toolbar-btn" (click)="toggleWindow()" title="Open window"><i class="fa-solid fa-chevron-left"></i></button>
   </div>
+
+
 </div>
 
+<!--DIALOGS-->
 
-<dialog id="configuration-dialog">
-  <div class="dialog-content">
-    <label for="minimumPidInput">Minimum Player ID</label>
-    <input id="minimumPidInput" type="number" step-="1" [formControl]="minimumPid"/>
-    <button class="dialog-btn" (click)=toggleDialog()>Close</button>
-  </div>
+<dialog [id]='addGuildCapturerDialogId'>
+  <add-guild-capturer (onFormSave)="addGuildCapturer($event)"></add-guild-capturer>
 </dialog>
-
-
-<dialog class="guild-dialog" *ngIf='showGuilds' open="true">
-  <div class="guild-label">
-    <h1>Captured Guilds</h1>
-    <button class="clear-btn" (click)="clearGuilds()"><i class="fa-solid fa-trash"></i></button>
-  </div>
-  <ul>
-    <li *ngFor="let guild of capturedGuilds">{{ guild.gid }} : {{ guild.guildName }}</li>
-  </ul>
+<dialog [id]='addPlayerCapturerDialogId'>
+  <add-player-capturer (onFormSave)="addPlayerCapturer($event)"></add-player-capturer>
 </dialog>

@@ -12,5 +12,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="src\app\models\" />
+    <Folder Include="src\app\dom\" />
+    <Folder Include="src\app\validators\" />
   </ItemGroup>
 </Project>

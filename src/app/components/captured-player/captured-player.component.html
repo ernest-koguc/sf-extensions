@@ -1,0 +1,36 @@
+<div class="capturer-ctn">
+  <div class="capturer-top-ctn">
+    <div class="capturer-header" (click)="toggleContent()" (auxclick)="deleteComponent($event)" (mousedown)="preventScroll($event)" (contextmenu)="copyToClipBoard($event)">
+      <h1>{{ capturer.name }}</h1>
+      <span class="config-hint"> ({{ capturer.minPid }} - {{ capturer.maxPid }})</span>
+    </div>
+    <div class="capturer-btn-pane">
+      <button type="button" class="txt-danger icon-small icon-btn" (click)="clearPlayer()" title="Clear captured player"><i class="fa-solid fa-trash"></i></button>
+      <button type="button" class="txt-warning icon-small icon-btn" (click)=toggleEditDialog() title="Edit configuration"><i class="fa-solid fa-pen"></i></button>
+    </div>
+  </div>
+  <div *ngIf="showContent" class="capturer-content">
+      <h4>Player ID:</h4>
+      <p> {{ capturer.pid }} </p>
+      <h4>Player Name:</h4>
+      <p> {{ capturer.playerName }} </p>
+      <h4>Guild Joined:</h4>
+      <p> {{ capturer.guildJoined }} </p>
+      <h4>Timestamp:</h4>
+      <p> {{ capturer.timestamp }} </p>
+  </div>
+</div>
+
+
+<dialog [id]="editDialogId">
+  <div class="dialog-content" [formGroup]="form">
+    <label for="minPID">Minimum Player ID</label>
+    <input #minGID type="number" step-="1" [value]="capturer.minPid" formControlName="minPid"/>
+    <label for="maxPID">Maximum Player ID</label>
+    <input #maxGID type="number" step-="1" [value]="capturer.maxPid" formControlName="maxPid"/>
+  </div>
+  <div class="dialog-actions">
+    <button btn type="button" class="dialog-btn" (click)="toggleEditDialog()">Cancel</button>
+    <button btn type="button" class="dialog-btn" [disabled]="!form.valid" (click)="toggleEditDialog(true)">Save</button>
+  </div>
+</dialog>

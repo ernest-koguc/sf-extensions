@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+    font-family: sans-serif;
+}
+
+body {
+    background-color: green;
+    margin: 0;
+}
+
+input, textarea, button {
+  color: #FFF;
+  background-color: #0A3B54;
+  font-size: 20px;
+  padding: 5px;
+  border: none;
+  margin: auto;
+}

@@ -1,0 +1,30 @@
+<div class="capturer-ctn">
+  <div class="capturer-top-ctn">
+    <div class="capturer-header" (click)="toggleContent()" (auxclick)="deleteComponent($event)" (mousedown)="preventScroll($event)" (contextmenu)="copyToClipBoard($event)">
+      <h1>{{ capturer.name }}</h1>
+      <span class="config-hint"> ({{ capturer.minGid }} - {{ capturer.maxGid }})</span>
+    </div>
+    <div class="capturer-btn-pane">
+      <button type="button" class="txt-danger icon-small icon-btn" (click)="clearGuilds()" title="Clear list of guilds"><i class="fa-solid fa-trash"></i></button>
+      <button type="button" class="txt-warning icon-small icon-btn" (click)=toggleEditDialog() title="Edit configuration"><i class="fa-solid fa-pen"></i></button>
+    </div>
+  </div>
+  <div *ngIf="showContent" class="capturer-content">
+    <ul>
+      <li *ngFor="let guild of capturer.guilds">{{ guild.gid }} : {{ guild.guildName }}</li>
+    </ul>
+  </div>
+</div>
+
+<dialog [id]="editDialogId">
+  <div class="dialog-content" [formGroup]="form">
+    <label for="minGID">Minimum Guild ID</label>
+    <input #minGID type="number" step-="1" [value]="capturer.minGid" formControlName="minGid"/>
+    <label for="maxGID">Maximum Guild ID</label>
+    <input #maxGID type="number" step-="1" [value]="capturer.maxGid" formControlName="maxGid"/>
+  </div>
+  <div class="dialog-actions">
+    <button btn type="button" class="dialog-btn" (click)="toggleEditDialog()">Cancel</button>
+    <button btn type="button" class="dialog-btn" [disabled]="!form.valid" (click)="toggleEditDialog(true)">Save</button>
+  </div>
+</dialog>

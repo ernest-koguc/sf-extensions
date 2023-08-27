@@ -1,0 +1,13 @@
+<div [formGroup]="form" class="dialog-content">
+  <label for="name">Name</label>
+  <input id="name" type="text" formControlName="name"/>
+  <label for="maxGid">Maximum Guild ID</label>
+  <input id="maxGid" type="number" step="1" formControlName="maxGid"/>
+  <label for="minGid">Minimum Guild ID</label>
+  <input id="minGid" type="number" step="1" formControlName="minGid"/>
+  <div class="dialog-actions">
+    <button btn type="button" (click)="cancel()">Cancel</button>
+    <button btn type="button" [disabled]="!form.valid" (click)="add()">Add</button>
+
+  </div>
+</div>
