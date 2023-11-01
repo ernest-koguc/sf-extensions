@@ -29,4 +29,15 @@ export class AddGuildCapturerComponent {
     this.onFormSave.emit();
     this.form.reset();
   }
+
+//  ngOnInit(): void {
+//    let elements = document.getElementsByTagName('input');
+//    for (let i = 0; i < elements.length; i++) {
+//      let input = elements[i];
+
+//      input.onkeydown = (event) => input.value += event.key;
+//    }
+//  }
+//  ngDoCheck(): void {
+//  }
 }

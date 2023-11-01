@@ -1,4 +1,4 @@
-if (document.URL.indexOf('forum') < 0)
+if (document.URL === 'https://sfgame.net/play')
   load();
 
 function load() {

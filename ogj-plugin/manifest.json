@@ -13,14 +13,14 @@
     "webRequest"
   ],
   "host_permissions": [
-    "*://*/*"
+    "https://sfgame.net/play"
   ],
   "content_scripts": [
     {
       "js": [ "angular-loader.js" ],
-       "matches": [ "*://*/*" ],
+      "matches": [ "https://sfgame.net/play" ],
       "include_globs": [
-        "*://*.sfgame.*/*"
+        "https://sfgame.net/play"
       ]
     }
   ],
